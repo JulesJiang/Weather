@@ -11,21 +11,21 @@ public class WeatherOpenHelper extends SQLiteOpenHelper {
 	 * user表建表语句
 	 */
 	public static final String CREATE_USERINFO="create table userinfo ("
-	 +"id integerr primary key autoincrement"
+	 +"id integer primary key autoincrement,"
 	 +"user_name text,"
 	 +"user_pwd text)";
 	/**
 	 * province表建表语句
 	 */
 	public static final String CREATE_PROVINCE="create table province ("
-			 +"id integerr primary key autoincrement"
+			 +"id integer primary key autoincrement,"
 			 +"province_name text,"
 			 +"province_code text)";
 	/**
 	 * city表建表语句
 	 */
 	public static final String CREATE_CITY="create table city ("
-			 +"id integerr primary key autoincrement"
+			 +"id integer primary key autoincrement,"
 			 +"city_name text,"
 			 +"city_code text," 
 			 +"province_id integer)";
@@ -33,9 +33,9 @@ public class WeatherOpenHelper extends SQLiteOpenHelper {
 	 * county表建表语句
 	 */
 	public static final String CREATE_COUNTY="create table county ("
-			 +"id integerr primary key autoincrement"
+			 +"id integer primary key autoincrement,"
 			 +"county_name text,"
-			 +"county_code text"
+			 +"county_code text,"
 			 +"city_id integer)";
 	public WeatherOpenHelper(Context context, String name,
 			CursorFactory factory, int version) {

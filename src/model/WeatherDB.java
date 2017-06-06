@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class WeatherDB {
 	/**
@@ -23,7 +24,7 @@ public class WeatherDB {
 	private static WeatherDB weatherDB;
 	private SQLiteDatabase db;
 	/**
-	 * 将构造方法私有话
+	 * 将构造方法私有化
 	 */
 	private WeatherDB (Context context){
 		WeatherOpenHelper dbHelper=new WeatherOpenHelper(context, DB_NAME, null, VERSION);
@@ -62,7 +63,7 @@ public class WeatherDB {
 		}
 	}
 	/**
-	 * 读取数据库中全国所哟省份信息
+	 * 读取数据库中全国所有省份信息
 	 */
 	public List<Province> loadProvinces(){
 		List<Province> list =new ArrayList<Province>();
@@ -131,6 +132,7 @@ public class WeatherDB {
 				new String[]{String.valueOf(cityId)},null,null,null);
 		if (cursor.moveToFirst()) {
 			do {
+				Log.i("Life", "county 获取成功");
 				County county = new County();
 				county.setId(cursor.getInt(cursor.getColumnIndex("id")));
 				county.setCounty_name(cursor.getString(cursor.getColumnIndex(County.COUNTY_NAME)));
