@@ -116,8 +116,8 @@ public class WeatherDB {
 	public void saveCounty(County county){
 		if (county!=null) {
 			ContentValues values = new ContentValues();
-			values.put("county_name", county.getCouty_name());
-			values.put("county_code", county.getCouty_code());
+			values.put("county_name", county.getCounty_name());
+			values.put("county_code", county.getCounty_code());
 			values.put("city_id", county.getCity_id());
 			db.insert("County", null, values);
 		}
@@ -133,8 +133,8 @@ public class WeatherDB {
 			do {
 				County county = new County();
 				county.setId(cursor.getInt(cursor.getColumnIndex("id")));
-				county.setCouty_name(cursor.getString(cursor.getColumnIndex("county_name")));
-				county.setCouty_code(cursor.getString(cursor.getColumnIndex("county_code")));
+				county.setCounty_name(cursor.getString(cursor.getColumnIndex("county_name")));
+				county.setCounty_code(cursor.getString(cursor.getColumnIndex("county_code")));
 				county.setCity_id(cursor.getInt(cursor.getColumnIndex("city_id")));
 				list.add(county);
 			} while (cursor.moveToNext());
