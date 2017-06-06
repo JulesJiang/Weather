@@ -5,7 +5,9 @@ public class Province {
 	private String province_name;
 	private String province_code;
 	
-	
+	static final String PROVINCE_NAME="province_name";
+	static final String PROVINCE_CODE="province_code";
+	static final String TABLE="province";
 	
 	public int getId() {
 		return id;

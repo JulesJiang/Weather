@@ -167,11 +167,11 @@ public class ChooseAreaActivity extends Activity {
 			@Override
 			public void onFinish(String response) {
 				boolean result=false;
-				if (PlaceType.province.equals(type)) {
+				if (PlaceType.PROVINCE.equals(type)) {
 					result= Utility.handleProvincesResponse(weatherDB, response);
-				}else if(PlaceType.city.equals(type)) {
+				}else if(PlaceType.CITY.equals(type)) {
 					result = Utility.handleCitiesResponse(weatherDB, response, selectedProvince.getId());
-				}else if (PlaceType.county.equals(type)) {
+				}else if (PlaceType.COUNTY.equals(type)) {
 					
 				}
 				

@@ -5,6 +5,10 @@ public class UserInfo {
 	private String username;
 	private String userpwd;
 	
+	public final static String USER_NAME= "user_name";
+	public final static String USER_PWD= "user_pwd";
+	public final static String TABLE="userinfo";
+	
 	
 	public int getId() {
 		return id;
