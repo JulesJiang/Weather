@@ -32,7 +32,7 @@ public class WeatherOpenHelper extends SQLiteOpenHelper {
 	/**
 	 * county±ÌΩ®±Ì”Ôæ‰
 	 */
-	public static final String CREATE_COUNTY="create table userinfo ("
+	public static final String CREATE_COUNTY="create table county ("
 			 +"id integerr primary key autoincrement"
 			 +"county_name text,"
 			 +"county_code text"

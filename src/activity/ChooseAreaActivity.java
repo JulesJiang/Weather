@@ -26,6 +26,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ChooseAreaActivity extends Activity {
 	public static final int LEVEL_PROVINCE = 0;
@@ -172,22 +173,70 @@ public class ChooseAreaActivity extends Activity {
 				}else if(PlaceType.CITY.equals(type)) {
 					result = Utility.handleCitiesResponse(weatherDB, response, selectedProvince.getId());
 				}else if (PlaceType.COUNTY.equals(type)) {
-					
+					result=Utility.handleCountiesResponse(weatherDB, response, selectedCity.getId());
 				}
-				
+				if (result) {
+					runOnUiThread(new Runnable() {
+						
+						@Override
+						public void run() {
+							closeProgressDialog();
+							if (PlaceType.PROVINCE.equals(type)) {
+								queryProvinces();
+							}else if (PlaceType.CITY.equals(type)) {
+								queryCities();
+							}else if (PlaceType.COUNTY.equals(type)) {
+								queryCounties();
+							}
+						}
+					});
+				}
 			}
 			
 			@Override
 			public void onError(Exception e) {
-				// TODO Auto-generated method stub
-				
+				runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						closeProgressDialog();
+						Toast.makeText(ChooseAreaActivity.this, "加载失败", Toast.LENGTH_SHORT);
+						
+					}
+				});
 			}
 		});
-		
-		
 	}
+	/**
+	 * 显示进度对话框
+	 */
 	private void showProgressDialog() {
-		// TODO Auto-generated method stub
-		
+		if (progressDialog==null) {
+			progressDialog=new ProgressDialog(this);
+			progressDialog.setMessage("正在加载");
+			progressDialog.setCanceledOnTouchOutside(false);
+		}
+		progressDialog.show();
+	}
+	/**
+	 * 关闭进度对话框
+	 */
+	private void closeProgressDialog(){
+		if (progressDialog!=null) {
+			progressDialog.dismiss();
+		}
+	}
+	/**
+	 * 捕获back按键，根据当前的级别来判断，此时应该返回市级列表，省列表，还是直接退出
+	 */
+	@Override
+	public void onBackPressed() {
+		if (currentLevel==LEVEL_COUNTY) {
+			queryCities();
+		}else if (currentLevel==LEVEL_CITY) {
+			queryProvinces();
+		}else {
+			finish();
+		}
 	}
 }
