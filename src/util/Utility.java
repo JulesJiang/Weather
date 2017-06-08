@@ -1,9 +1,16 @@
 package util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import model.City;
 import model.County;
@@ -107,7 +114,16 @@ public class Utility {
 	private static void saveWeatherInfo(Context context, String cityName,
 			String weatherCode, String temp1, String temp2, String weatherDesp,
 			String publishTime) {
-//		写到这里
-		
+			SimpleDateFormat sdf= new SimpleDateFormat("yyyy年M月d日",Locale.CHINA);
+			SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+			editor.putBoolean("city_selected", true);
+			editor.putString(City.CITY_NAME,cityName);
+			editor.putString(WeatherType.WEATHER_CODE,weatherCode);
+			editor.putString(WeatherType.TEMP1,cityName);
+			editor.putString(WeatherType.TEMP2,cityName);
+			editor.putString(WeatherType.WEATHER_DESP,weatherDesp);
+			editor.putString(WeatherType.PUBLISH_TIME,publishTime);
+			editor.putString("current_date",sdf.format(new Date()));
+			editor.commit();
 	}
 }

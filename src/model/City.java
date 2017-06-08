@@ -6,10 +6,10 @@ public class City {
 	private String city_code;
 	private int province_id;
 	
-	static final String CITY_NAME="city_name";
-	static final String CITY_CODE="city_code";
-	static final String PROVINCE_ID="province_id";
-	static final String TABLE="city";
+	public static final String CITY_NAME="city_name";
+	public static final String CITY_CODE="city_code";
+	public static final String PROVINCE_ID="province_id";
+	public static final String TABLE="city";
 	
 	public int getId() {
 		return id;

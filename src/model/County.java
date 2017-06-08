@@ -6,10 +6,10 @@ public class County {
 	private String county_code;
 	private int city_id;
 	
-	static final String COUNTY_NAME="county_name";
-	static final String COUNTY_CODE="county_code";
-	static final String CITY_ID="city_id";
-	static final String TABLE="county";
+	public static final String COUNTY_NAME="county_name";
+	public static final String COUNTY_CODE="county_code";
+	public static final String CITY_ID="city_id";
+	public static final String TABLE="county";
 	
 	public int getId() {
 		return id;

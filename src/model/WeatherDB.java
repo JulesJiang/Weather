@@ -39,17 +39,34 @@ public class WeatherDB {
 		}
 		return weatherDB;
 	}
+	
 	/**
-	 * 将userinfo实例存储到数据库
+	 * 注册
 	 */
-	public void saveUserinfo(UserInfo userinfo){
+	public boolean regist(UserInfo userinfo){
 	
 		if (userinfo!=null) {
 			ContentValues values = new ContentValues();
 			values.put(UserInfo.USER_NAME, userinfo.getUsername());
 			values.put(UserInfo.USER_PWD, userinfo.getUserpwd());
-			db.insert(UserInfo.TABLE, null, values);
+			long i = db.insert(UserInfo.TABLE, null, values);
+			if (i==1) {
+				return true;
+			}
 		}
+		return false;
+	}
+	/**
+	 * 登录
+	 */
+	public boolean loginCheck(UserInfo userInfo){
+		if (userInfo!=null) {
+			boolean flag=db.query(UserInfo.TABLE, null,
+					UserInfo.USER_NAME+"=? and "+UserInfo.USER_PWD+"=?",
+					new String[]{userInfo.getUsername(),userInfo.getUserpwd()}, null, null, null).moveToFirst();
+			return true;
+		}
+		return false;
 	}
 	/**
 	 * 将Province实例存储到数据库
