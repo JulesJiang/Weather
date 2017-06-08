@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -78,7 +79,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		String countyCode = getIntent().getStringExtra(County.COUNTY_CODE);
 		if (!TextUtils.isEmpty(countyCode)) {
 			//有县级代号时就去查询天气
-			publishText.setText("同步中...");
+			publishText.setText("查询天气同步中...");
 			weatherInfoLayout.setVisibility(View.INVISIBLE);
 			cityNameText.setVisibility(View.INVISIBLE);
 			queryWeatherCode(countyCode);
@@ -99,11 +100,12 @@ public class WeatherActivity extends Activity implements OnClickListener{
 			finish();
 			break;
 		case R.id.refresh_weather:
-			publishText.setText("同步中...");
+			publishText.setText("点击刷新同步中...");
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			String weatherCode = prefs.getString(WeatherType.WEATHER_CODE, "");
+			Log.i("Life", "weathercode="+weatherCode);
 			if (!TextUtils.isEmpty(weatherCode)) {
-				queryWeatherCode(weatherCode);
+				queryWeatherInfo(weatherCode);
 			}
 			break;
 		default:
@@ -118,8 +120,10 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	private void queryWeatherCode(String countyCode) {
 		String address ="http://www.weather.com.cn/data/list3/city"+
 	countyCode+".xml";
+		Log.i("Life","countyCode"+countyCode);
 		queryFromServer(address,County.COUNTY_CODE);
 		
+
 	}
 	/**
 	 * 查询天气代号所对应的天气
@@ -127,6 +131,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	 */
 	protected void queryWeatherInfo(String weatherCode) {
 		// TODO Auto-generated method stub
+		Log.i("Life","weatherCode "+ weatherCode);
 		String address ="http://www.weather.com.cn/data/cityinfo/"+weatherCode+".html";
 		queryFromServer(address, WeatherType.WEATHER_CODE);
 	}
@@ -136,18 +141,22 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	 * @param address
 	 * @param countyCode
 	 */
-	private void queryFromServer(String address,final String type) {
+	private void queryFromServer(final String address,final String type) {
 		HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
-			
+			//response的内容包含的是一个html页面
 			@Override
-			public void onFinish(String response) {
+			public void onFinish(final String response) {
 				if (County.COUNTY_CODE.equals(type)) {
 					if (!TextUtils.isEmpty(response)) {
 						//从服务器返回的数据中解析天气代号
+						Log.i("Life","response="+response);
 						String[] array = response.split("\\|");
+						Log.i("Life","array="+array.length+array[0]);
 						if (array!=null&&array.length==2) {
 							String weatherCode=array[1];
 							queryWeatherInfo(weatherCode);
+							Log.i("Life","查询queryWeatherInfo(weatherCode)");
+
 						}
 					}
 				}else if (WeatherType.WEATHER_CODE.equals(type)) {
