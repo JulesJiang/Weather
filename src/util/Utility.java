@@ -119,8 +119,8 @@ public class Utility {
 			editor.putBoolean(WeatherType.CITY_SELECTED, true);
 			editor.putString(City.CITY_NAME,cityName);
 			editor.putString(WeatherType.WEATHER_CODE,weatherCode);
-			editor.putString(WeatherType.TEMP1,cityName);
-			editor.putString(WeatherType.TEMP2,cityName);
+			editor.putString(WeatherType.TEMP1,temp1);
+			editor.putString(WeatherType.TEMP2,temp2);
 			editor.putString(WeatherType.WEATHER_DESP,weatherDesp);
 			editor.putString(WeatherType.PUBLISH_TIME,publishTime);
 			editor.putString("current_date",sdf.format(new Date()));

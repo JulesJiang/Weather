@@ -73,14 +73,14 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		temp2Text = (TextView) findViewById(R.id.temp2);
 		currentDateText = (TextView) findViewById(R.id.current_date);
 		switchCityBtn = (Button) findViewById(R.id.switch_city);
-		refreshWeatherBtn = (Button) findViewById(R.id.city_name);
+		refreshWeatherBtn = (Button) findViewById(R.id.refresh_weather);
 		
 		String countyCode = getIntent().getStringExtra(County.COUNTY_CODE);
 		if (!TextUtils.isEmpty(countyCode)) {
 			//有县级代号时就去查询天气
 			publishText.setText("同步中...");
 			weatherInfoLayout.setVisibility(View.INVISIBLE);
-			cityNameText.setVisibility(View.VISIBLE);
+			cityNameText.setVisibility(View.INVISIBLE);
 			queryWeatherCode(countyCode);
 		}else {
 			//没有县级代号时就显示本地天气
@@ -118,7 +118,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	private void queryWeatherCode(String countyCode) {
 		String address ="http://www.weather.com.cn/data/list3/city"+
 	countyCode+".xml";
-		queryFromSever(address,County.COUNTY_CODE);
+		queryFromServer(address,County.COUNTY_CODE);
 		
 	}
 	/**
@@ -128,7 +128,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	protected void queryWeatherInfo(String weatherCode) {
 		// TODO Auto-generated method stub
 		String address ="http://www.weather.com.cn/data/cityinfo/"+weatherCode+".html";
-		queryFromSever(address, WeatherType.WEATHER_CODE);
+		queryFromServer(address, WeatherType.WEATHER_CODE);
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	 * @param address
 	 * @param countyCode
 	 */
-	private void queryFromSever(String address,final String type) {
+	private void queryFromServer(String address,final String type) {
 		HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
 			
 			@Override
@@ -183,7 +183,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		temp1Text.setText(prefs.getString(WeatherType.TEMP1, ""));
 		temp2Text.setText(prefs.getString(WeatherType.TEMP2, ""));
 		weatherDespText.setText(prefs.getString(WeatherType.WEATHER_DESP, ""));
-		publishText.setText(prefs.getString(WeatherType.PUBLISH_TIME, ""));
+		publishText.setText(prefs.getString(WeatherType.PUBLISH_TIME, "")+"发布");
 		currentDateText.setText(prefs.getString(WeatherType.CURRENT_DATE, ""));
 		weatherInfoLayout.setVisibility(View.VISIBLE);
 		cityNameText.setVisibility(View.VISIBLE);

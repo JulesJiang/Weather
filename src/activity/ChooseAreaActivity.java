@@ -75,7 +75,6 @@ public class ChooseAreaActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		if (prefs.getBoolean(WeatherType.CITY_SELECTED, false)) {
-			Log.i("Life", "打开天气界面");
 			Intent intent = new Intent(this,WeatherActivity.class);
 			startActivity(intent);
 			finish();
