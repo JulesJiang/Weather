@@ -28,6 +28,8 @@ public final class R {
         public static final int purple_error=0x7f020004;
         public static final int purple_home=0x7f020005;
         public static final int purple_regist=0x7f020006;
+        public static final int white_44_home=0x7f020007;
+        public static final int white_60_refresh=0x7f020008;
     }
     public static final class id {
         public static final int action_settings=0x7f080012;
