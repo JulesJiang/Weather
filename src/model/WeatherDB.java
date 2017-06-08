@@ -149,7 +149,6 @@ public class WeatherDB {
 				new String[]{String.valueOf(cityId)},null,null,null);
 		if (cursor.moveToFirst()) {
 			do {
-				Log.i("Life", "county 获取成功");
 				County county = new County();
 				county.setId(cursor.getInt(cursor.getColumnIndex("id")));
 				county.setCounty_name(cursor.getString(cursor.getColumnIndex(County.COUNTY_NAME)));

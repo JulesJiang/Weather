@@ -7,6 +7,7 @@ import util.HttpCallbackListener;
 import util.HttpUtil;
 import util.PlaceType;
 import util.Utility;
+import util.WeatherType;
 
 import com.julse.com.R;
 
@@ -16,9 +17,13 @@ import model.Province;
 import model.WeatherDB;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.renderscript.Type;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -68,6 +73,14 @@ public class ChooseAreaActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		if (prefs.getBoolean(WeatherType.CITY_SELECTED, false)) {
+			Log.i("Life", "打开天气界面");
+			Intent intent = new Intent(this,WeatherActivity.class);
+			startActivity(intent);
+			finish();
+			return;
+		}
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.choose_area);
 		listView = (ListView) findViewById(R.id.list_view);
@@ -86,6 +99,12 @@ public class ChooseAreaActivity extends Activity {
 				}else if (currentLevel==LEVEL_CITY) {
 					selectedCity= cityList.get(index);
 					queryCounties();
+				}else if (currentLevel==LEVEL_COUNTY) {
+					String countyCode = countyList.get(index).getCounty_code();
+					Intent intent =new Intent(ChooseAreaActivity.this,WeatherActivity.class);
+					intent.putExtra(County.COUNTY_CODE, countyCode);
+					startActivity(intent);
+					finish();
 				}
 			}
 		});
