@@ -64,11 +64,13 @@ public class LoginActivity extends Activity {
 				editor.commit();// Ìá½»
 
 				if (weatherDB.loginCheck(userInfo)) {
-					Log.i("Life", "µÇÂ¼³É¹¦");
-					Intent intent = new Intent(LoginActivity.this,WeatherActivity.class);
+					
+					Toast.makeText(LoginActivity.this, "µÇÂ¼³É¹¦", Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(LoginActivity.this,ChooseAreaActivity.class);
 					startActivity(intent);
 				} else {
-					Log.i("Life", "µÇÂ¼Ê§°Ü");
+					Toast.makeText(LoginActivity.this, "µÇÂ¼Ê§°Ü", Toast.LENGTH_SHORT).show();
+					
 				}
 			}
 		});

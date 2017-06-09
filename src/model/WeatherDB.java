@@ -64,7 +64,8 @@ public class WeatherDB {
 			boolean flag=db.query(UserInfo.TABLE, null,
 					UserInfo.USER_NAME+"=? and "+UserInfo.USER_PWD+"=?",
 					new String[]{userInfo.getUsername(),userInfo.getUserpwd()}, null, null, null).moveToFirst();
-			return true;
+			Log.i("Life", "µÇÂ½ÊÇ·ñ³É¹¦ flag="+flag);
+			return flag;
 		}
 		return false;
 	}
