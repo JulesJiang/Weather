@@ -1,5 +1,6 @@
 package activity;
 
+import service.AutoUpdateService;
 import util.HttpCallbackListener;
 import util.HttpUtil;
 import util.Utility;
@@ -100,10 +101,10 @@ public class WeatherActivity extends Activity implements OnClickListener{
 			finish();
 			break;
 		case R.id.refresh_weather:
-			publishText.setText("点击刷新同步中...");
+			publishText.setText("同步中...");
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			String weatherCode = prefs.getString(WeatherType.WEATHER_CODE, "");
-			Log.i("Life", "weathercode="+weatherCode);
+//			Log.i("Life", "weathercode="+weatherCode);
 			if (!TextUtils.isEmpty(weatherCode)) {
 				queryWeatherInfo(weatherCode);
 			}
@@ -120,7 +121,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	private void queryWeatherCode(String countyCode) {
 		String address ="http://www.weather.com.cn/data/list3/city"+
 	countyCode+".xml";
-		Log.i("Life","countyCode"+countyCode);
+//		Log.i("Life","countyCode"+countyCode);
 		queryFromServer(address,County.COUNTY_CODE);
 		
 
@@ -131,7 +132,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	 */
 	protected void queryWeatherInfo(String weatherCode) {
 		// TODO Auto-generated method stub
-		Log.i("Life","weatherCode "+ weatherCode);
+//		Log.i("Life","weatherCode "+ weatherCode);
 		String address ="http://www.weather.com.cn/data/cityinfo/"+weatherCode+".html";
 		queryFromServer(address, WeatherType.WEATHER_CODE);
 	}
@@ -149,13 +150,13 @@ public class WeatherActivity extends Activity implements OnClickListener{
 				if (County.COUNTY_CODE.equals(type)) {
 					if (!TextUtils.isEmpty(response)) {
 						//从服务器返回的数据中解析天气代号
-						Log.i("Life","response="+response);
+//						Log.i("Life","response="+response);
 						String[] array = response.split("\\|");
-						Log.i("Life","array="+array.length+array[0]);
+//						Log.i("Life","array="+array.length+array[0]);
 						if (array!=null&&array.length==2) {
 							String weatherCode=array[1];
 							queryWeatherInfo(weatherCode);
-							Log.i("Life","查询queryWeatherInfo(weatherCode)");
+//							Log.i("Life","查询queryWeatherInfo(weatherCode)");
 
 						}
 					}
@@ -196,6 +197,9 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		currentDateText.setText(prefs.getString(WeatherType.CURRENT_DATE, ""));
 		weatherInfoLayout.setVisibility(View.VISIBLE);
 		cityNameText.setVisibility(View.VISIBLE);
+		
+		Intent intent = new Intent(this,AutoUpdateService.class);
+		startService(intent);
 		
 	}
 
