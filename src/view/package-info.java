@@ -1,8 +1,2 @@
-/**
- * 
- */
-/**
- * @author jules
- *
- */
+
 package view;

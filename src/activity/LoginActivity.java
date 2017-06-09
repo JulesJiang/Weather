@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -33,18 +34,18 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//初始化有米广告的借口
+		//初始化有米广告的接口
 		AdManager.getInstance(this).init("8bef07fc9b629735", "3b8c10575c763646", false);
-	
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_login);
-		setTitle("登录");
+		
 		
 		
 		weatherDB=WeatherDB.getInstance(LoginActivity.this);
-		name_eText = (EditText) findViewById(R.id.edit_title);
-		pwd_eText = (EditText) findViewById(R.id.editText2);
-		login_btn = (Button) findViewById(R.id.btn_public);
-		regist_btn = (Button) findViewById(R.id.btn_root);
+		name_eText = (EditText) findViewById(R.id.edit_name);
+		pwd_eText = (EditText) findViewById(R.id.edit_pwd);
+		login_btn = (Button) findViewById(R.id.btn_login);
+		regist_btn = (Button) findViewById(R.id.btn_regist);
 
 		login_btn.setOnClickListener(new OnClickListener() {
 

@@ -111,7 +111,7 @@
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
-            android:background="#fbd">
+            android:background="#484E61">
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
