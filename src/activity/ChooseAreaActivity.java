@@ -3,6 +3,7 @@ package activity;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import util.HttpCallbackListener;
 import util.HttpUtil;
 import util.PlaceType;
@@ -37,7 +38,6 @@ public class ChooseAreaActivity extends Activity {
 	public static final int LEVEL_PROVINCE = 0;
 	public static final int LEVEL_CITY=1;
 	public static final int LEVEL_COUNTY= 2 ;
-	
 	private ProgressDialog progressDialog;
 	private TextView titleText;
 	private ListView listView;
@@ -77,6 +77,7 @@ public class ChooseAreaActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		isFromWeatherActivity = getIntent().getBooleanExtra("from_weather_activity", false);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		//已经选择了城市且不是从WeatherActivity跳转过来，才会直接跳转到WeatherActivity

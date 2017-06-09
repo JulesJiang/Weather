@@ -1,5 +1,7 @@
 package activity;
 
+import net.youmi.android.banner.AdSize;
+import net.youmi.android.banner.AdView;
 import service.AutoUpdateService;
 import util.HttpCallbackListener;
 import util.HttpUtil;
@@ -90,6 +92,15 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		}
 		switchCityBtn.setOnClickListener(this);
 		refreshWeatherBtn.setOnClickListener(this);
+		
+		
+		//广告
+		//实例化广告条
+		AdView adView = new AdView(this, AdSize.FIT_SCREEN);
+		//获取要嵌入广告条的布局
+		LinearLayout adyLayout = (LinearLayout) findViewById(R.id.adLayout);
+		//将广告条加入到布局中
+		adyLayout.addView(adView);
 	}
 	@Override
 	public void onClick(View v) {

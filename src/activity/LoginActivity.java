@@ -1,5 +1,6 @@
 package activity;
 
+import net.youmi.android.AdManager;
 import model.UserInfo;
 import model.WeatherDB;
 
@@ -10,13 +11,16 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 	private EditText name_eText;
@@ -29,12 +33,14 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//初始化有米广告的借口
+		AdManager.getInstance(this).init("8bef07fc9b629735", "3b8c10575c763646", false);
+	
 		setContentView(R.layout.activity_login);
 		setTitle("登录");
 		
-		userInfo = UserInfo.getInstance();
-		weatherDB=WeatherDB.getInstance(LoginActivity.this);
 		
+		weatherDB=WeatherDB.getInstance(LoginActivity.this);
 		name_eText = (EditText) findViewById(R.id.edit_title);
 		pwd_eText = (EditText) findViewById(R.id.editText2);
 		login_btn = (Button) findViewById(R.id.btn_public);
@@ -47,6 +53,7 @@ public class LoginActivity extends Activity {
 				// TODO Auto-generated method stub
 				String name = name_eText.getText().toString();
 				String pwd = pwd_eText.getText().toString();
+				userInfo= UserInfo.getInstance();
 				userInfo.setUsername(name);
 				userInfo.setUserpwd(pwd);
 				SharedPreferences pref = getSharedPreferences(UserInfo.TABLE,
@@ -58,6 +65,8 @@ public class LoginActivity extends Activity {
 
 				if (weatherDB.loginCheck(userInfo)) {
 					Log.i("Life", "登录成功");
+					Intent intent = new Intent(LoginActivity.this,WeatherActivity.class);
+					startActivity(intent);
 				} else {
 					Log.i("Life", "登录失败");
 				}
@@ -78,10 +87,27 @@ public class LoginActivity extends Activity {
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
 						// TODO Auto-generated method stub
+						String name = name_eText.getText().toString();
+						String pwd = pwd_eText.getText().toString();
+						String pwd_repeat = pwd_eText.getText().toString();
+						if (TextUtils.isEmpty(name)||TextUtils.isEmpty(pwd)) {
+							Toast.makeText(LoginActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
+						}
+						else if (!TextUtils.equals(pwd,pwd_repeat)) {
+							Toast.makeText(LoginActivity.this, "两次密码不一致", Toast.LENGTH_SHORT).show();
+						}
+						else {
+							userInfo= UserInfo.getInstance();
+							userInfo.setUsername(name);
+							userInfo.setUserpwd(pwd);
+							weatherDB.regist(userInfo);
+						}
 						
 					}
 				});
-				weatherDB.regist(userInfo);
+				
+				builder.create().show();
+				
 			}
 		});
 		SharedPreferences sharedPref = getSharedPreferences(UserInfo.TABLE,
