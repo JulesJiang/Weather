@@ -32,7 +32,8 @@ public final class R {
         public static final int white_60_refresh=0x7f020008;
     }
     public static final class id {
-        public static final int action_settings=0x7f080012;
+        public static final int action_settings=0x7f080013;
+        public static final int adLayout=0x7f080012;
         public static final int btn_public=0x7f080004;
         public static final int btn_root=0x7f080003;
         public static final int city_name=0x7f08000a;
